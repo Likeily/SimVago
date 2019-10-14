@@ -1,4 +1,4 @@
-package br.com.simvago.reservas;
+package br.com.simvago;
 
 public enum TipoCliente {
 	

@@ -1,4 +1,4 @@
-package br.com.simvago.reservas;
+package br.com.simvago;
 
 import java.util.Calendar;
 

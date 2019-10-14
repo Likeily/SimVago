@@ -1,16 +1,22 @@
-package br.com.simvago.reservas.hoteis;
+package br.com.simvago.hoteis;
 
-import br.com.simvago.reservas.TipoCliente;
-import br.com.simvago.reservas.TipoTaxa;
+import br.com.simvago.TipoCliente;
+import br.com.simvago.TipoTaxa;
 
 public class Taxa {
 	
 	private TipoTaxa tipoTaxa;
 	private TipoCliente tipoCliente;
-	private Double custo;
-	
+	private Integer custo;
+
 	public boolean cobranca(TipoTaxa tipoTaxa, TipoCliente tipoCliente) {
 		return this.tipoTaxa.equals(tipoTaxa) && this.tipoCliente.equals(tipoCliente);
+	}
+	
+	public Taxa(TipoTaxa tipoTaxa, TipoCliente tipoCliente, Integer custo) {
+		this.tipoTaxa = tipoTaxa;
+		this.tipoCliente = tipoCliente;
+		this.custo = custo;
 	}
 	
 	public TipoTaxa getTipoTaxa() {
@@ -25,10 +31,10 @@ public class Taxa {
 	public void setTipoCliente(TipoCliente tipoCliente) {
 		this.tipoCliente = tipoCliente;
 	}
-	public Double getCusto() {
+	public Integer getCusto() {
 		return custo;
 	}
-	public void setCusto(Double custo) {
+	public void setCusto(Integer custo) {
 		this.custo = custo;
 	}
 	

@@ -1,33 +1,36 @@
-package br.com.simvago.reservas.hoteis;
+package br.com.simvago.hoteis;
 
-import java.beans.Customizer;
+import java.util.ArrayList;
 import java.util.List;
 
-import org.omg.CORBA.portable.CustomValue;
-
-import br.com.simvago.reservas.TipoCliente;
-import br.com.simvago.reservas.TipoTaxa;
+import br.com.simvago.SolicitarReserva;
+import br.com.simvago.TipoCliente;
+import br.com.simvago.TipoTaxa;
 
 public class Hotel {
 
 	private String nome;
 	private Integer classificacao;
-	private List<TipoTaxa> taxas;
+	private List<Taxa> taxas;
 
-	public Hotel(String nome, Integer classificacao, List<TipoTaxa> taxas) {
+	public Hotel(String nome, Integer classificacao, ArrayList<Taxa> taxas) {
 		super();
 		this.nome = nome;
 		this.classificacao = classificacao;
 		this.taxas = taxas;
 	}
 	
-	public Double tabelaPreco(List<TipoTaxa> tipoTaxa, TipoCliente tipoCliente) {
-		for (TipoTaxa taxa : taxas) {
+	public Integer tabelaPreco(TipoTaxa tipoTaxa, TipoCliente tipoCliente) {
+		for (Taxa taxa : taxas) {
 			if (taxa.cobranca(tipoTaxa, tipoCliente)) {
 				return taxa.getCusto();
 			}
 		}
 		return null;
+	}
+	
+	public Integer tabelaPreco(SolicitarReserva request) {
+		return tabelaPreco(request.getTipoTaxa(), request.getTipoCliente());
 	}
 
 	public String getNome() {
@@ -44,14 +47,6 @@ public class Hotel {
 	
 	public void setClassificacao(Integer classificacao) {
 		this.classificacao = classificacao;
-	}
-	
-	public List<TipoTaxa> getTaxas() {
-		return taxas;
-	}
-	
-	public void setTaxas(List<TipoTaxa> taxas) {
-		this.taxas = taxas;
 	}
 	
 }
