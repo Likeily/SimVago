@@ -20,6 +20,10 @@ public class Hotel {
 		this.taxas = taxas;
 	}
 	
+	public Hotel(String string, int i, boolean contains, Taxa taxa2) {
+		// TODO Auto-generated constructor stub
+	}
+
 	public Integer tabelaPreco(TipoTaxa tipoTaxa, TipoCliente tipoCliente) {
 		for (Taxa taxa : taxas) {
 			if (taxa.cobranca(tipoTaxa, tipoCliente)) {
