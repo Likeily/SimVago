@@ -15,6 +15,8 @@ import br.com.simvago.hoteis.Taxa;
 public class HotelTeste {
 	
 	private Hotel hotel;
+	
+	private ArrayList<Taxa> listaTaxas = null;
 
 	public void setUp() {
 		Taxa semanaRegular = new Taxa(TipoTaxa.SEMANAL, TipoCliente.REGULAR, 100);
@@ -22,8 +24,13 @@ public class HotelTeste {
 		Taxa semanaRewards = new Taxa(TipoTaxa.SEMANAL, TipoCliente.REWARDS, 80);
 		Taxa fimdesemanaRewards = new Taxa(TipoTaxa.FIMDSEMANA, TipoCliente.REWARDS, 125);
 
-		hotel = new Hotel("hotel name", 3,
-				new ArrayList<E>(semanaRegular, fimdesemanaRegular, semanaRewards, fimdesemanaRewards));
+	    listaTaxas = new ArrayList<Taxa>();
+        listaTaxas.add(semanaRegular);
+        listaTaxas.add(fimdesemanaRegular);
+        listaTaxas.add(semanaRewards);
+        listaTaxas.add(fimdesemanaRewards);
+        
+		hotel = new Hotel("nome do hotel", 3, listaTaxas);
 	}
 
 	@Test

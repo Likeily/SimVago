@@ -1,7 +1,6 @@
 package br.com.simvago;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;
 
@@ -9,40 +8,54 @@ import br.com.simvago.hoteis.RedeDHoteis;
 
 public class ComputarReserva {
 
-	private List<SolicitarReserva> solicitarReservas = new ArrayList<SolicitarReserva>();
+	private ArrayList<SolicitarReserva> solicitarReservas = null;
 	private RedeDHoteis redes;
 
-	public ComputarReserva(List<String> tipoDeReserva, RedeDHoteis redes) {
-		super();
-		this.solicitarReservas = solicitarReservasPara(tipoDeReserva);
+	public ComputarReserva(List<String> lines, RedeDHoteis redes) {
 		this.redes = redes;
+		this.solicitarReservas = (ArrayList<SolicitarReserva>) solicitarReservasPara(lines);
 	}
 
-	private List<SolicitarReserva> solicitarReservasPara(List<String> tipoDeReserva) {
-		return new ArrayList<SolicitarReserva>(Collection(tipoDeReserva, solicitarReservasParaTipo()));
+	private List<SolicitarReserva> solicitarReservasPara(List<String> lines) {
+		return newArrayList(Collections2.transform(lines, reservationRequestFromLine()));
 	}
 
-	private Function<? super String, SolicitarReserva> solicitarReservasParaTipo() {
+	private Function<? super String, SolicitarReserva> reservationRequestFromLine() {
 		return new Function<String, SolicitarReserva>() {
 			@Override
-			public SolicitarReserva aplicar(String tipoDeReserva) {
-				return new SolicitarReserva(tipoDeReserva);
+			public SolicitarReserva apply(String line) {
+				return new SolicitarReserva(line);
 			}
 		};
 	}
 
-	public String mostrarReservas() {
+	public String reservationResults() {
 		Joiner joiner = Joiner.on("\n");
-		return joiner.join(Collection.transform(solicitarReservas, toHotelsWithBestRateForRequest()));
+		return joiner.join(Collections2.transform(solicitarReservas, toHotelsWithBestRateForRequest()));
 	}
 
 	private Function<? super SolicitarReserva, String> toHotelsWithBestRateForRequest() {
 		return new Function<SolicitarReserva, String>() {
 			@Override
-			public String apply(SolicitarReserva solicitarReserva) {
-				return redes.hotelWithBestRateFor(solicitarReserva);
+			public String apply(SolicitarReserva) {
+				return redes.hotelWithBestRateFor(solicitarReservas);
 			}
 		};
 	}
 
+	public List<SolicitarReserva> getSolicitarReservas() {
+		return solicitarReservas;
+	}
+
+	public void setSolicitarReservas(List<SolicitarReserva> solicitarReservas) {
+		this.solicitarReservas = (ArrayList<SolicitarReserva>) solicitarReservas;
+	}
+
+	public RedeDHoteis getRedes() {
+		return redes;
+	}
+
+	public void setRedes(RedeDHoteis redes) {
+		this.redes = redes;
+	}
 }
