@@ -1,4 +1,4 @@
-package br.com.testes.hotel;
+package testes.com.hotel;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;

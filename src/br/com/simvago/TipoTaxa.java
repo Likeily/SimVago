@@ -12,7 +12,7 @@ public enum TipoTaxa {
 
 	private List<Integer> diasDaSemana;
 
-	private TipoTaxa(ArrayList<LocalDate> diasDaSemana) {
+	private TipoTaxa(List<Integer> diasDaSemana) {
 		this.diasDaSemana = diasDaSemana;
 	}
 

@@ -1,4 +1,4 @@
-package br.com.testes.hotel;
+package testes.com.hotel;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -18,7 +18,7 @@ public class RedeDHoteisTeste {
 	@Test
 	public void shouldFindBestRateForRegularWeekday() {
 		RedeDHoteisTeste redes = new RedeDHoteisTeste(
-				new Hotel("hotel name", 5, newArrayList(new Taxa(TipoTaxa.SEMANAL, TipoCliente.REGULAR, 100))));
+				new Hotel("hotel name", 5, newArrayList(new Taxa(TipoTaxa.SEMANAL, TipoCliente.REGULAR, 100)));
 		assertThat(redes.CustoBeneficio(new ReservationRequest("Regular: 20Mar2009(fri)")), is("hotel name"));
 	}
 
@@ -26,7 +26,7 @@ public class RedeDHoteisTeste {
 	public void shouldFindBestRateForRegularWeekdayWithTwoChoices() {
 		Hotel hotel1 = new Hotel("hotel name 1", 5,
 				new ArrayList(new Taxa(TipoTaxa.SEMANAL, TipoCliente.REGULAR, 100)));
-		Hotel hotel2 = new Hotel("hotel name 2", 5, newArrayList(new Taxa(TipoTaxa.SEMANAL, TipoCliente.REGULAR, 90)));
+		Hotel hotel2 = new Hotel("hotel name 2", 5, new ArrayList(new Taxa(TipoTaxa.SEMANAL, TipoCliente.REGULAR, 90)));
 		RedeDHoteis redes = new RedeDHoteis(hotel1, hotel2);
 		assertThat(redes.CustoBeneficio(new SolicitarReserva("Regular: 20Mar2009(fri)")), is("hotel name 2"));
 	}
@@ -35,9 +35,9 @@ public class RedeDHoteisTeste {
 	@Test
 	public void shouldFindBestRateForRegularWeekdayWithTwoChoicesEqualExceptForRating() {
 		Hotel hotel1 = new Hotel("hotel name 1", 4,
-				newArrayList(new Taxa(TipoTaxa.SEMANAL, TipoCliente.Regular, 100)));
+				new ArrayList(new Taxa(TipoTaxa.SEMANAL, TipoCliente.Regular, 100)));
 		Hotel hotel2 = new Hotel("hotel name 2", 5,
-				newArrayList(new Taxa(TipoTaxa.SEMANAL, TipoCliente.Regular, 100)));
+				new ArrayList(new Taxa(TipoTaxa.SEMANAL, TipoCliente.Regular, 100)));
 		RedeDHoteis redes = new RedeDHoteis(hotel1, hotel2);
 		assertThat(redes.CustoBeneficio(new SolicitarReserva("Regular: 20Mar2009(fri)")), is("hotel name 2"));
 	}
