@@ -1,6 +1,7 @@
 package br.com.simvago;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -30,15 +31,15 @@ public class SolicitarReserva {
 
 		if (matches) {
 			for (int i = 0; i < matcher.groupCount(); i++) {
-				pedidoDatas.add(dateFrom(matcher.group(i)));
+				pedidoDatas.addAll(datesFrom(matcher.group(i)));
 			}
 		}
 
 		return pedidoDatas;
 	}
 
-	private LocalDate dateFrom(String group) {
-		return new LocalDate(LocalDate.parse("dMMMy").parse(group));
+	static LocalDate converte(String group) {
+		return LocalDate.parse(group, DateTimeFormatter.ofPattern("dMMMyy"));
 	}
 
 	public TipoCliente getTipoCliente() {
