@@ -1,3 +1,0 @@
-Regular: 16Mar2009(seg), 17Mar2009(ter), 18Mar2009(qua)
-Regular: 20Mar2009(sex), 21Mar2009(sab), 22Mar2009(dom)
-Rewards: 26Mar2009(ter), 27Mar2009(sex), 28Mar2009(sab)

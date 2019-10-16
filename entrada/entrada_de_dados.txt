@@ -1,0 +1,3 @@
+Regular: 07Out2019(Seg), 08Out2019(Ter), 09Out2019(Qua)
+Regular: 11Out2019(Sex), 12Out2019(Sab), 13Out2019(Dom)
+Rewards: 15Out2019(Ter), 16Out2019(Qua), 17Out2019(Qui)

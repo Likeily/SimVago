@@ -10,7 +10,6 @@ public class RedeDHoteis {
 	        this.hoteis = hoteis;
 	    }
 
-
 	    public String CustoBeneficio(SolicitarReserva request) {
 	        Hotel hotelMaiorValor = hoteis[0];
 	        for (Hotel hotel : hoteis) {
@@ -20,4 +19,5 @@ public class RedeDHoteis {
 	        }
 	        return hotelMaiorValor.getNome();
 	    }
+
 }

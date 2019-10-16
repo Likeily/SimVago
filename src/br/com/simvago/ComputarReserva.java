@@ -1,50 +1,56 @@
 package br.com.simvago;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.StringJoiner;
 import java.util.function.Function;
 
-import br.com.simvago.hoteis.Hotel;
 import br.com.simvago.hoteis.RedeDHoteis;
-import br.com.simvago.hoteis.Taxa;
 
 public class ComputarReserva {
 
-	private ArrayList<SolicitarReserva> solicitarReservas = null;
     private RedeDHoteis redes;
+    
+    private List<SolicitarReserva> solicitarReservas = new ArrayList<SolicitarReserva>();
 
-    public ComputarReserva(List<String> exibe, RedeDHoteis redes) {
+    public ComputarReserva(String tipos, RedeDHoteis redes) {
         this.redes = redes;
-        this.solicitarReservas = (ArrayList<SolicitarReserva>) solicitarReservasPara(exibe);
+        this.solicitarReservas = solicitarReservasPara(tipos);
     }
 
-    private List<SolicitarReserva> solicitarReservasPara(List<String> lines) {
-        return newArrayList(Collections2.transform(lines, solicitarReservasParaTipo()));
+	private List<SolicitarReserva> solicitarReservasPara(String tipos) {
+		 return newArrayList(Collections.addAll(tipos, solicitarReservasParaTipo()));
     }
 
-
+	@SuppressWarnings("unused")
 	private Function<? super String, SolicitarReserva> solicitarReservasParaTipo() {
 		return new Function<String, SolicitarReserva>() {
 			@Override
-			public SolicitarReserva apply(String line) {
-				return new SolicitarReserva(line);
+			public SolicitarReserva apply(String tipo) {
+				return new SolicitarReserva(tipo);
 			}
 		};
 	}
 
 	public String exibirReservas() {
-		Joiner joiner = Joiner.on("\n");
-		return joiner.join(Collections2.transform(solicitarReservas, melhorSolicitacaoPorTaxa()));
-	}
+		List<SolicitarReserva> mainList = new ArrayList<SolicitarReserva>(); 
+		List<Function<SolicitarReserva, String>> melhorTaxa = Arrays.asList(hotelComMelhorTaxaDeReserva());  
+		StringJoiner joiner = new StringJoiner(", ");
+		for (Function<SolicitarReserva, String> s : melhorTaxa) {
+		    joiner.add((CharSequence) s);
+		}
+		return mainList.add(joiner.toString());
+    }
 
-	private Function<? super SolicitarReserva, String> melhorSolicitacaoPorTaxa() {
-		return new Function<SolicitarReserva, String>() {
-			@Override
-			public String apply(SolicitarReserva) {
-				return redes.hotelWithBestRateFor(solicitarReservas);
-			}
-		};
+    private Function<SolicitarReserva, String> hotelComMelhorTaxaDeReserva() {
+        return new Function<SolicitarReserva, String>() {
+            @Override
+            public String apply(SolicitarReserva solicitarReserva) {
+                return redes.CustoBeneficio(solicitarReserva);
+            }
+        };
 		
 	}
 
