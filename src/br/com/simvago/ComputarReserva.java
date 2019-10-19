@@ -2,8 +2,9 @@ package br.com.simvago;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.StringJoiner;
 import java.util.function.Function;
 
@@ -15,14 +16,18 @@ public class ComputarReserva {
     
     private List<SolicitarReserva> solicitarReservas = new ArrayList<SolicitarReserva>();
 
-    public ComputarReserva(String tipos, RedeDHoteis redes) {
+    @SuppressWarnings("unchecked")
+	public ComputarReserva(String tipos, RedeDHoteis redes) {
         this.redes = redes;
-        this.solicitarReservas = solicitarReservasPara(tipos);
+        this.solicitarReservas = (List<SolicitarReserva>) solicitarReservasPara(tipos);
     }
 
-	private List<SolicitarReserva> solicitarReservasPara(String tipos) {
-		 return newArrayList(Collections.addAll(tipos, solicitarReservasParaTipo()));
-    }
+	private Map<String, ComputarReserva> solicitarReservasPara(String tipos){
+		Map<String, ComputarReserva> melhorReserva = new HashMap<>();
+		melhorReserva.put(tipos, (ComputarReserva) solicitarReservas);
+		return melhorReserva;	
+		
+	}
 
 	@SuppressWarnings("unused")
 	private Function<? super String, SolicitarReserva> solicitarReservasParaTipo() {
@@ -35,13 +40,12 @@ public class ComputarReserva {
 	}
 
 	public String exibirReservas() {
-		List<SolicitarReserva> mainList = new ArrayList<SolicitarReserva>(); 
 		List<Function<SolicitarReserva, String>> melhorTaxa = Arrays.asList(hotelComMelhorTaxaDeReserva());  
 		StringJoiner joiner = new StringJoiner(", ");
 		for (Function<SolicitarReserva, String> s : melhorTaxa) {
 		    joiner.add((CharSequence) s);
 		}
-		return mainList.add(joiner.toString());
+		return joiner.toString();
     }
 
     private Function<SolicitarReserva, String> hotelComMelhorTaxaDeReserva() {
